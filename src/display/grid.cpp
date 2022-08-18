@@ -77,7 +77,7 @@ void Grid::_updateElements() {
             for (int i { -1 }; i <= 1; ++i) {
                 for (int j { -1 }; j <= 1; ++j) {
                     if ((i != 0 || j != 0) && _isInBounds(Vector2(x + i, y + j))) {
-                        Element newElement { _map[x + i][y + j] };
+                        Element newElement { _oldMap[x + i][y + j] };
 
                         // Propagation des plantes
                         if (element == Element::PLANT && newElement == Element::VOID && !(rand() % 100)) {
