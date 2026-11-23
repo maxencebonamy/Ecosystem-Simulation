@@ -13,11 +13,17 @@ endif()
 add_executable(${PROJECT_NAME} ${PROJ_SRC})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
-find_package(SFML COMPONENTS system window graphics REQUIRED)
+if (APPLE)
+    list(APPEND CMAKE_PREFIX_PATH /opt/homebrew/opt/sfml@2 /usr/local/opt/sfml@2)
+endif()
+set(CMAKE_CXX_STANDARD 17)
+find_package(SFML 2 COMPONENTS system window graphics REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE
         sfml-system
-        sfml-main
         sfml-window
         sfml-graphics
     )
+if (WIN32)
+    target_link_libraries(${PROJECT_NAME} PRIVATE sfml-main)
+endif()
 target_include_directories(${PROJECT_NAME} PRIVATE ${SFML_INCLUDE_DIR})
